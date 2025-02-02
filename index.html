@@ -7,9 +7,10 @@
      <title>Color Guessing Game</title>
      <style>
           @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
           body {
                font-family: 'Press Start 2P', cursive;
-               color:azure;
+               color: azure;
                display: flex;
                flex-direction: column;
                align-items: center;
@@ -69,12 +70,13 @@
                border: none;
                border-radius: 5px;
                cursor: pointer;
-               transition: background-color 0.3s ease;
-               font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+               transition: all 0.3s ease;
+               font-family: 'Press Start 2P', cursive;
           }
 
           .new-game-btn:hover {
-               background-color: #45a049;
+               background-color: #33d63b;
+               transform: scale(1.05);
           }
 
           @keyframes shake {
@@ -115,6 +117,11 @@
                animation: celebration 0.5s ease;
           }
 
+          .disabled {
+               opacity: 0.5 !important;
+               pointer-events: none !important;
+          }
+
           @media (max-width: 600px) {
                .options-container {
                     grid-template-columns: repeat(2, 1fr);
@@ -148,46 +155,53 @@
           ];
 
           let targetColor;
-          let score = 0; 
+          let score = 0;
           const MAX_SCORE = 10;
           const MAX_ATTEMPTS = 3;
           let attemptsLeft = MAX_ATTEMPTS;
           let gameActive = true;
 
-
           function initializeGame() {
-               // Set new target color
-               targetColor = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
+               gameActive = true;
+               attemptsLeft = MAX_ATTEMPTS;
 
-               // Update color box
+               // Reset color box
                const colorBox = document.querySelector('[data-testid="colorBox"]');
-               colorBox.style.backgroundColor = targetColor;
+               colorBox.style.animation = '';
                colorBox.classList.remove('celebration');
+               colorBox.style.backgroundColor = targetColor;
 
-               // Create shuffled options
-               const options = [...predefinedColors].sort(() => Math.random() - 0.5);
+               // Clear existing options
                const optionsContainer = document.querySelector('.options-container');
                optionsContainer.innerHTML = '';
 
-               // Create color option buttons
+               // Generate new target color
+               targetColor = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
+               colorBox.style.backgroundColor = targetColor;
+
+               // Create new options
+               const options = [...predefinedColors].sort(() => Math.random() - 0.5);
                options.forEach(color => {
                     const button = document.createElement('button');
                     button.className = 'color-option';
                     button.style.backgroundColor = color;
                     button.dataset.color = color;
                     button.setAttribute('data-testid', 'colorOption');
+                    button.setAttribute('aria-label', `Color option ${color}`);
                     button.addEventListener('click', handleGuess);
                     optionsContainer.appendChild(button);
                });
 
-               // Update score display
+               // Reset UI elements
                document.querySelector('[data-testid="score"]').textContent = `Score: ${score}`;
-               // Clear status
                document.querySelector('[data-testid="gameStatus"]').textContent = '';
+               document.querySelectorAll('.color-option').forEach(btn => {
+                    btn.classList.remove('disabled');
+               });
           }
 
           function handleGuess(event) {
-                 if (!gameActive) return;
+               if (!gameActive) return;
 
                const guessedColor = event.target.dataset.color;
                const statusElement = document.querySelector('[data-testid="gameStatus"]');
@@ -197,7 +211,6 @@
                     statusElement.textContent = 'Correct! Well done!';
                     document.querySelector('[data-testid="score"]').textContent = `Score: ${score}`;
 
-                    // Check win condition
                     if (score >= MAX_SCORE) {
                          endGame(true);
                          return;
@@ -210,7 +223,6 @@
                     attemptsLeft--;
                     statusElement.textContent = `Wrong! ${attemptsLeft} attempts left.`;
 
-                    // Check loss condition
                     if (attemptsLeft <= 0) {
                          endGame(false);
                          return;
@@ -219,69 +231,31 @@
                     event.target.classList.add('shake');
                     setTimeout(() => event.target.classList.remove('shake'), 500);
                }
-          };
+          }
 
-               function endGame(won) {
-                         gameActive = false;
-                         const statusElement = document.querySelector('[data-testid="gameStatus"]');
-                         const colorBox = document.querySelector('[data-testid="colorBox"]');
+          function endGame(won) {
+               gameActive = false;
+               const statusElement = document.querySelector('[data-testid="gameStatus"]');
+               const colorBox = document.querySelector('[data-testid="colorBox"]');
 
-                         if (won) {
-                              statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
-                              colorBox.style.animation = 'celebration 2s infinite';
-                         } else {
-                              statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
-                              colorBox.style.backgroundColor = '#000';
-                              colorBox.style.animation = 'shake 0.5s infinite';
-                         }
-                    };
+               if (won) {
+                    statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
+                    colorBox.style.animation = 'celebration 2s infinite';
+               } else {
+                    statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
+                    colorBox.style.backgroundColor = '#000';
+                    colorBox.style.animation = 'shake 0.5s ease-in-out';
+               }
 
-      document.querySelectorAll('.color-option').forEach(btn => {
-               btn.style.opacity = '0.5';
-               btn.style.pointerEvents = 'none';
-          });
+               document.querySelectorAll('.color-option').forEach(btn => {
+                    btn.classList.add('disabled');
+               });
+          }
 
-          const colorBox = document.querySelector('[data-testid="colorBox"]');
-          colorBox.style.animation = 'none';
-
-          document.querySelectorAll('.color-option').forEach(btn => {
-               btn.style.opacity = '1';
-               btn.style.pointerEvents = 'auto';
-          });
-
-          // Set new target color
-          targetColor = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
-
-          // Update color box
-          colorBox.style.backgroundColor = targetColor;
-          colorBox.classList.remove('celebration');
-
-          // Create shuffled options
-          const options = [...predefinedColors].sort(() => Math.random() - 0.5);
-          const optionsContainer = document.querySelector('.options-container');
-          optionsContainer.innerHTML = '';
-
-          // Create color option buttons
-          options.forEach(color => {
-               const button = document.createElement('button');
-               button.className = 'color-option';
-               button.style.backgroundColor = color;
-               button.dataset.color = color;
-               button.setAttribute('data-testid', 'colorOption');
-               button.addEventListener('click', handleGuess);
-               optionsContainer.appendChild(button);
-          });
-
-          // Update score display
-          document.querySelector('[data-testid="score"]').textContent = `Score: ${score}`;
-
-          // New game button click handler
+          // New Game button handler
           document.querySelector('[data-testid="newGameButton"]').addEventListener('click', () => {
                score = 0;
                attemptsLeft = MAX_ATTEMPTS;
-               gameActive = true;
-               const colorBox = document.querySelector('[data-testid="colorBox"]');
-               colorBox.style.animation = 'none'; // Reset animation
                initializeGame();
           });
 
