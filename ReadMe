@@ -2,9 +2,8 @@
 
 A fun and interactive web-based game where players match colors visually. Test your color perception skills and see how many you can guess correctly!
 
-[![Live Demo](https://img.shields.io/badge/demo-live-green?style=for-the-badge)](https://your-demolink.com)
+[!(https://color-game-gules-kappa.vercel.app/)]
 
-![Game Screenshot](/screenshot.png) <!-- Add actual screenshot path -->
 
 ## 🌟 Features
 
@@ -25,7 +24,7 @@ Get instant feedback (correct/wrong)
 
 Earn points for correct guesses
 
-Use "New Game" button to reset
+Use the "New Game" button to reset
 
 Try to beat your high score!
 
@@ -48,25 +47,6 @@ Animation handlers
 
 Responsive layout management
 
-Color System
-The game uses carefully selected colors from the HSL spectrum:
-
-javascript
-Copy
-const predefinedColors = [
-'#FF6B6B', '#4ECDC4', '#45B7D1',
-'#96CEB4', '#FFEEAD', '#FF9999'
-];
-📚 Documentation
-Game Attributes
-data-testid="colorBox": Target color display
-
-data-testid="colorOption": Color choice buttons
-
-data-testid="score": Score display
-
-data-testid="newGameButton": Reset button
-
 Animation Types
 Correct Guess:
 
@@ -87,7 +67,7 @@ Create your feature branch (git checkout -b feature/amazing-feature)
 
 Commit changes (git commit -m 'Add amazing feature')
 
-Push to branch (git push origin feature/amazing-feature)
+Push to the branch (git push origin feature/amazing-feature)
 
 Open a Pull Request
 
@@ -95,8 +75,5 @@ Open a Pull Request
 Distributed under MIT License. See LICENSE for details.
 
 Developed by Esther Bawo Tsotso
-
-```
-
 
 ```
