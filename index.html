@@ -17,6 +17,7 @@
                margin: 0;
                padding: 20px;
                background-color: #41525a;
+               text-align: center;
           }
 
           .color-box {
@@ -204,7 +205,7 @@
 
                     const colorBox = document.querySelector('[data-testid="colorBox"]');
                     colorBox.classList.add('celebration');
-                    setTimeout(initializeGame, 1000);
+                    setTimeout(initializeGame, 1500);
                } else {
                     attemptsLeft--;
                     statusElement.textContent = `Wrong! ${attemptsLeft} attempts left.`;
@@ -226,10 +227,10 @@
                          const colorBox = document.querySelector('[data-testid="colorBox"]');
 
                          if (won) {
-                              statusElement.innerHTML = '🎉 YOU WON!<br>Final Score: ' + score;
+                              statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
                               colorBox.style.animation = 'celebration 2s infinite';
                          } else {
-                              statusElement.innerHTML = '💥 GAME OVER!<br>Final Score: ' + score;
+                              statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
                               colorBox.style.backgroundColor = '#000';
                               colorBox.style.animation = 'shake 0.5s infinite';
                          }
