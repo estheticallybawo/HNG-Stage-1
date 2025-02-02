@@ -1,0 +1,102 @@
+# 🎨 Color Guessing Game
+
+A fun and interactive web-based game where players match colors visually. Test your color perception skills and see how many you can guess correctly!
+
+[![Live Demo](https://img.shields.io/badge/demo-live-green?style=for-the-badge)](https://your-demolink.com)
+
+![Game Screenshot](/screenshot.png) <!-- Add actual screenshot path -->
+
+## 🌟 Features
+
+- **Visual Color Matching**: Guess colors without hex codes
+- **Dynamic Scoring System**: Track your correct guesses
+- **Animated Feedback**: Celebratory effects for correct answers
+- **Responsive Design**: Play on any device
+- **Interactive Background**: Particle.js animation effects
+- **Instant Restart**: New game button for continuous play
+- **Accessible UI**: Large touch-friendly buttons
+
+🎮 How to Play
+Observe the target color box
+
+Click the color button that matches the target
+
+Get instant feedback (correct/wrong)
+
+Earn points for correct guesses
+
+Use "New Game" button to reset
+
+Try to beat your high score!
+
+🔧 Technical Details
+Tech Stack:
+
+HTML5
+
+CSS3 (Animations/Grid/Flexbox)
+
+Vanilla JavaScript
+
+Key Components:
+
+Dynamic color generation
+
+Score tracking system
+
+Animation handlers
+
+Responsive layout management
+
+Color System
+The game uses carefully selected colors from the HSL spectrum:
+
+javascript
+Copy
+const predefinedColors = [
+'#FF6B6B', '#4ECDC4', '#45B7D1',
+'#96CEB4', '#FFEEAD', '#FF9999'
+];
+📚 Documentation
+Game Attributes
+data-testid="colorBox": Target color display
+
+data-testid="colorOption": Color choice buttons
+
+data-testid="score": Score display
+
+data-testid="newGameButton": Reset button
+
+Animation Types
+Correct Guess:
+
+Color box bounce
+
+Wrong Guess:
+
+Button shake
+
+Red feedback text
+
+🤝 Contributing
+Contributions welcome! Please follow these steps:
+
+Fork the repository
+
+Create your feature branch (git checkout -b feature/amazing-feature)
+
+Commit changes (git commit -m 'Add amazing feature')
+
+Push to branch (git push origin feature/amazing-feature)
+
+Open a Pull Request
+
+📜 License
+Distributed under MIT License. See LICENSE for details.
+
+Developed by Esther Bawo Tsotso
+
+```
+
+
+```
