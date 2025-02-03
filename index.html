@@ -256,10 +256,11 @@
                if (won) {
                     statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
                     colorBox.style.animation = 'celebration 2s infinite';
-                    triggerConfetti(); // Add confetti here
+                    triggerConfetti();
                     // Fire multiple confetti bursts
                     setTimeout(triggerConfetti, 100);
                     setTimeout(triggerConfetti, 200);
+                    setTimeout(triggerConfetti, 300);
                } else {
                     statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
                     colorBox.style.backgroundColor = '#000';
