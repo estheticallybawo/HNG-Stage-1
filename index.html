@@ -186,6 +186,8 @@
           colorBox.style.backgroundColor = targetColor;
 
           // Clear existing options
+          const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
+          instructionsElement.textContent = 'Tap on the option to choose the right color';
           const optionsContainer = document.querySelector('.options-container');
           optionsContainer.innerHTML = '';
 
@@ -264,10 +266,12 @@
           gameActive = false;
           const statusElement = document.querySelector('[data-testid="gameStatus"]');
           const colorBox = document.querySelector('[data-testid="colorBox"]');
+          const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
 
           if (won) {
                statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
                colorBox.style.animation = 'celebration 2s infinite';
+               instructionsElement.textContent = 'Congratulations! You won!';
                triggerConfetti();
                // Fire multiple confetti bursts
                setTimeout(triggerConfetti, 100);
@@ -277,9 +281,10 @@
                statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
                colorBox.style.backgroundColor = '#000';
                colorBox.style.animation = 'shake 0.5s infinite';
+               instructionsElement.textContent = 'Game over! Better luck next time!';
      
                
-          }
+          };
 
           document.querySelectorAll('.color-option').forEach(btn => {
                btn.classList.add('disabled');
@@ -289,7 +294,6 @@
      document.querySelector('[data-testid="newGameButton"]').addEventListener('click', () => {
           score = 0;
           attemptsLeft = MAX_ATTEMPTS;
-          const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
           initializeGame();
 
      });
