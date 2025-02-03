@@ -242,7 +242,7 @@
           const guessedColor = event.target.dataset.color;
           const statusElement = document.querySelector('[data-testid="gameStatus"]');
           const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
-          instructionsElement.textContent = 'Get a Streak of 10 to win!';
+          instructionsElement.textContent = 'Get a Streak of 10 guesses to win!';
 
           if (guessedColor === targetColor) {
                score++;
