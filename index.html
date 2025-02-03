@@ -5,6 +5,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Color Guessing Game</title>
+     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
      <style>
           @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -200,6 +201,19 @@
                     btn.classList.remove('disabled');
                });
           }
+     function triggerConfetti() {
+          function randomInRange(min, max) {
+               return Math.random() * (max - min) + min;
+          }
+
+          confetti({
+               angle: randomInRange(55, 125),
+               spread: randomInRange(50, 70),
+               particleCount: randomInRange(50, 100),
+               origin: { y: 0.6 }
+          });
+     }
+
 
           function handleGuess(event) {
                if (!gameActive) return;
@@ -234,7 +248,7 @@
                }
           }
 
-          function endGame(won) {
+         function endGame(won) {
                gameActive = false;
                const statusElement = document.querySelector('[data-testid="gameStatus"]');
                const colorBox = document.querySelector('[data-testid="colorBox"]');
@@ -242,17 +256,20 @@
                if (won) {
                     statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
                     colorBox.style.animation = 'celebration 2s infinite';
+                    triggerConfetti(); // Add confetti here
+                    // Fire multiple confetti bursts
+                    setTimeout(triggerConfetti, 100);
+                    setTimeout(triggerConfetti, 200);
                } else {
                     statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
                     colorBox.style.backgroundColor = '#000';
-                    colorBox.style.animation = 'shake 0.5s ease-in-out';
+                    colorBox.style.animation = 'shake 0.5s infinite';
                }
 
                document.querySelectorAll('.color-option').forEach(btn => {
                     btn.classList.add('disabled');
                });
           }
-
           // New Game button handler
           document.querySelector('[data-testid="newGameButton"]').addEventListener('click', () => {
                score = 0;
