@@ -4,7 +4,6 @@ A fun and interactive web-based game where players match colors visually. Test y
 
 [!(https://color-game-gules-kappa.vercel.app/)]
 
-
 ## 🌟 Features
 
 - **Visual Color Matching**: Guess colors without hex codes
@@ -13,6 +12,7 @@ A fun and interactive web-based game where players match colors visually. Test y
 - **Responsive Design**: Play on any device
 - **Instant Restart**: New game button for continuous play
 - **Accessible UI**: Large touch-friendly buttons
+  --**Sound Effect**: Gamified sound effect to make more engaging
 
 🎮 How to Play
 Observe the target color box
@@ -22,6 +22,10 @@ Click the color button that matches the target
 Get instant feedback (correct/wrong)
 
 Earn points for correct guesses
+
+10 correct guesses = Game Won
+
+3 losses Streak = Game lost
 
 Use the "New Game" button to reset
 
@@ -74,5 +78,7 @@ Open a Pull Request
 Distributed under MIT License. See LICENSE for details.
 
 Developed by Esther Bawo Tsotso
+
+```
 
 ```
