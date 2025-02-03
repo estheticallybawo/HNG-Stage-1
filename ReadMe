@@ -11,7 +11,6 @@ A fun and interactive web-based game where players match colors visually. Test y
 - **Dynamic Scoring System**: Track your correct guesses
 - **Animated Feedback**: Celebratory effects for correct answers
 - **Responsive Design**: Play on any device
-- **Interactive Background**: Particle.js animation effects
 - **Instant Restart**: New game button for continuous play
 - **Accessible UI**: Large touch-friendly buttons
 
