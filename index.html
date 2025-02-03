@@ -241,6 +241,8 @@
 
           const guessedColor = event.target.dataset.color;
           const statusElement = document.querySelector('[data-testid="gameStatus"]');
+          const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
+          instructionsElement.textContent = 'Get a Streak of 10 to win!';
 
           if (guessedColor === targetColor) {
                score++;
@@ -258,6 +260,7 @@
           } else {
                attemptsLeft--;
                statusElement.textContent = `Wrong! ${attemptsLeft} attempts left.`;
+               instructionsElement.textContent = '3 wrong guesses and you lose!';
 
                if (attemptsLeft <= 0) {
                     endGame(false);
