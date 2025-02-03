@@ -6,6 +6,12 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Color Guessing Game</title>
      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+     <audio class="fail" src="fail-buzzer-01.mp3"></audio>
+     <audio class="lost" src="fail-trombone-03.mp3"></audio>
+     <audio class="won" src="magic-chime-01.mp3"></audio>
+     <audio class="win" src="handbag-lock-3.mp3"></audio>
+     <audio class="newGame" src="Retro newgame.wav"></audio>
+
      <style>
           @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -181,6 +187,11 @@
      const MAX_ATTEMPTS = 3;
      let attemptsLeft = MAX_ATTEMPTS;
      let gameActive = true;
+     const failSound = document.querySelector('.fail');
+     const lostSound = document.querySelector('.lost');
+     const wonSound = document.querySelector('.won');
+     const winSound = document.querySelector('.win');
+     const newGameSound = document.querySelector('.newGame');
 
      function initializeGame() {
           gameActive = true;
@@ -190,6 +201,7 @@
           const colorBox = document.querySelector('[data-testid="colorBox"]');
           colorBox.style.animation = '';
           colorBox.classList.remove('celebration');
+          targetColor = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
           colorBox.style.backgroundColor = targetColor;
 
           // Clear existing options
@@ -198,9 +210,6 @@
           const optionsContainer = document.querySelector('.options-container');
           optionsContainer.innerHTML = '';
 
-          // Generate new target color
-          targetColor = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
-          colorBox.style.backgroundColor = targetColor;
 
           // Create new options
           const options = [...predefinedColors].sort(() => Math.random() - 0.5);
@@ -248,7 +257,7 @@
                score++;
                statusElement.textContent = 'Correct! Well done!';
                document.querySelector('[data-testid="score"]').textContent = `Score: ${score}`;
-
+               winSound.play();
                if (score >= MAX_SCORE) {
                     endGame(true);
                     return;
@@ -261,7 +270,6 @@
                attemptsLeft--;
                statusElement.textContent = `Wrong! ${attemptsLeft} attempts left.`;
                instructionsElement.textContent = '3 Streak of Wrong Guesses and you lose!';
-
                if (attemptsLeft <= 0) {
                     endGame(false);
                     return;
@@ -269,6 +277,8 @@
 
                event.target.classList.add('shake');
                setTimeout(() => event.target.classList.remove('shake'), 500);
+               failSound.play();
+               
           }
      }
 
@@ -278,40 +288,38 @@
           const colorBox = document.querySelector('[data-testid="colorBox"]');
           const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
 
-          if (won) {
-               statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
-               colorBox.style.animation = 'celebration 2s infinite';
-               instructionsElement.textContent = 'Congratulations! You won!';
-               triggerConfetti();
-               // Fire multiple confetti bursts
-               setTimeout(triggerConfetti, 1000);
-               setTimeout(triggerConfetti, 2000);
-               setTimeout(triggerConfetti, 3000);
-               setTimeout(triggerConfetti, 4000);
-          } else {
-               statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
-               colorBox.style.backgroundColor = '#000';
-               colorBox.style.animation = 'shake 0.5s infinite';
-               instructionsElement.textContent = 'Game over! Better luck next time!';
-     
-               
-          };
+            if (won) {
+                  statusElement.innerHTML = 'YOU WON!<br>Final Score: ' + score;
+                  colorBox.style.animation = 'celebration 2s infinite';
+                  instructionsElement.textContent = 'Congratulations! You won!';
+                    wonSound.play();
+                  triggerConfetti();
+                  // Fire multiple confetti bursts
+                  setTimeout(triggerConfetti, 1000);
+                  setTimeout(triggerConfetti, 2000);
+                  setTimeout(triggerConfetti, 3000);
+                  setTimeout(triggerConfetti, 4000);
+            } else {
+                  statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
+                  colorBox.style.backgroundColor = '#000';
+                  colorBox.style.animation = 'shake 0.5s infinite';
+                  instructionsElement.textContent = 'Game over! Better luck next time!';
+                    lostSound.play();
+            };
 
-          document.querySelectorAll('.color-option').forEach(btn => {
-               btn.classList.add('disabled');
-          });
-     }
-     // New Game button handler
-     document.querySelector('[data-testid="newGameButton"]').addEventListener('click', () => {
-          score = 0;
-          attemptsLeft = MAX_ATTEMPTS;
-          initializeGame();
+            document.querySelectorAll('.color-option').forEach(btn => {
+                  btn.classList.add('disabled');
+            });
+      }
+      // New Game button handler
+      document.querySelector('[data-testid="newGameButton"]').addEventListener('click', () => {
+            score = 0;
+            attemptsLeft = MAX_ATTEMPTS;
+               newGameSound.play();
+            initializeGame();
+      });
 
-     });
-
-     // Initialize first game
-     initializeGame();
-     </script>
-</body>
-
+      // Initialize first game
+      initializeGame();
+</script>
 </html>
