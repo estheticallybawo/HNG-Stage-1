@@ -242,7 +242,7 @@
           const guessedColor = event.target.dataset.color;
           const statusElement = document.querySelector('[data-testid="gameStatus"]');
           const instructionsElement = document.querySelector('[data-testid="gameInstructions"]');
-          instructionsElement.textContent = 'Get 10 guesses to win!';
+          instructionsElement.textContent = `Get ${9 - score} guesses to win!`;
 
           if (guessedColor === targetColor) {
                score++;
@@ -256,11 +256,11 @@
 
                const colorBox = document.querySelector('[data-testid="colorBox"]');
                colorBox.classList.add('celebration');
-               setTimeout(initializeGame, 1500);
+               setTimeout(initializeGame, 1200);
           } else {
                attemptsLeft--;
                statusElement.textContent = `Wrong! ${attemptsLeft} attempts left.`;
-               instructionsElement.textContent = '3 streak of wrong guesses and you lose!';
+               instructionsElement.textContent = '3 Streak of Wrong Guesses and you lose!';
 
                if (attemptsLeft <= 0) {
                     endGame(false);
@@ -284,9 +284,10 @@
                instructionsElement.textContent = 'Congratulations! You won!';
                triggerConfetti();
                // Fire multiple confetti bursts
-               setTimeout(triggerConfetti, 100);
-               setTimeout(triggerConfetti, 200);
-               setTimeout(triggerConfetti, 300);
+               setTimeout(triggerConfetti, 1000);
+               setTimeout(triggerConfetti, 2000);
+               setTimeout(triggerConfetti, 3000);
+               setTimeout(triggerConfetti, 4000);
           } else {
                statusElement.innerHTML = 'GAME OVER!<br>Final Score: ' + score;
                colorBox.style.backgroundColor = '#000';
